@@ -2,7 +2,7 @@
 
 @section('content')
 <div
-    class=" h-[50em] bg-cover bg-[url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] overflow-clip">
+    class=" border-red-500 border-1 h-[50em] bg-cover bg-[url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] overflow-clip">
 
     <div>
         <h1 class="text-background text-center font-bold text-[4rem] pt-36">Temukan akomodasi terbaikmu</h1>
@@ -76,8 +76,8 @@ return [
 
 
     <div class="my-24 container">
-        <h1 class="font-bold">Promo terbaik</h1>
-        <div>
+        <h1>KONTOL</h1>
+        <div class="h-[14rem] bg-slate-300">
             @foreach ($hero as $h)
             <img class="overflow-scroll rounded-xl" src="{{ $h['image'] }}" alt="Hero image">
             @endforeach
