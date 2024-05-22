@@ -8,6 +8,10 @@ use App\Models\Room;
 
 class HotelController extends Controller
 {
+    public function index() {
+        return view('hotel.index');
+    }
+
     public function searchForm()
     {
         return view('home.index');
@@ -48,7 +52,7 @@ class HotelController extends Controller
         return view('hotel.index', ['hotels' => $hotels]);
     }
 
-    public function show(\App\Models\Hotel $hotel) {
-        return view('/hotel/' . $hotel->id, compact('hotel'));
+    public function show() {
+        return view('hotel.show');
     }
 }

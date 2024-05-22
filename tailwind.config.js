@@ -5,6 +5,7 @@ export default {
         "./resources/**/*.js",
         "./resources/**/*.vue",
         ],
+    mode: 'jit',
     theme: {
         extend: {
             colors: {
@@ -15,8 +16,8 @@ export default {
                 'accent': 'var(--accent)',
             },
             fontFamily: {
-                sans: ['"Open Sans"', 'sans-serif'],
-              },
+                sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            },
         },
     },
     plugins: [],

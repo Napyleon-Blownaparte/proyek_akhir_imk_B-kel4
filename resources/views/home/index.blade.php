@@ -2,7 +2,7 @@
 
 @section('content')
 <div
-    class=" border-red-500 border-1 h-[50em] bg-cover bg-[url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] overflow-clip">
+    class="h-[50em] bg-cover bg-[url('https://img.freepik.com/free-photo/modern-luxury-hotel-room-with-illuminated-electric-lamp-comfortable-bed-generated-by-artificial-intelligence_188544-150151.jpg?t=st=1716354432~exp=1716358032~hmac=86adb8da407693ff98ef44ec732644be54809eeecf1506340cbe55d5a4720577&w=1060')] overflow-clip">
 
     <div>
         <h1 class="text-background text-center font-bold text-[4rem] pt-36">Temukan akomodasi terbaikmu</h1>
@@ -75,9 +75,9 @@ return [
 <div class="container">
 
 
-    <div class="my-24 container">
-        <h1>KONTOL</h1>
-        <div class="h-[14rem] bg-slate-300">
+    <div class="my-24 container border-red-500 border-1">
+        <h1 class="font-bold border-red-500 border-1">Promo terbaik</h1>
+        <div class="h-[14rem] bg-slate-300 border-red-500 border-1">
             @foreach ($hero as $h)
             <img class="overflow-scroll rounded-xl" src="{{ $h['image'] }}" alt="Hero image">
             @endforeach
@@ -86,7 +86,7 @@ return [
 
 
     <div class=" my-24">
-        <h1 class="font-bold">Staycation populer</h1>
+        <h1 class="font-bold ml-2">Staycation populer</h1>
         <div class="flex flex-wrap justify-center md:justify-between">
             @foreach ($hotels as $hotel)
             <div class="card shadow-xl m-2 w-[26rem] md:w-[19rem] cursor-pointer">
@@ -122,7 +122,7 @@ return [
         </div>
     </div>
 
-    <div class=" my-24">
+    <div class=" my-24 ml-2">
         <h1 class="font-bold">Staycation irit</h1>
         <div class="flex flex-wrap justify-center md:justify-between">
             @foreach ($hotels as $hotel)
