@@ -21,6 +21,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@material-tailwind/html": "^2.2.2",
         "@preline/accordion": "^2.1.0",
         "alpinejs": "^3.14.0"
     }

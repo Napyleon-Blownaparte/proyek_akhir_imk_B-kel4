@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="w-[80em] mx-auto">
         <div class="my-5">
             <h1>Rincian Kamar</h1>
             <div class="flex mt-3 gap-3 mb-2">
@@ -41,7 +41,28 @@
         </div>
         <div>
             <h1>Pilih Metode Pembayaran</h1>
-            
+            <div class="p-4 cursor-pointer flex justify-between items-center border-b border-gray-200"
+                onclick="toggleDetails(1)">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="h-6 w-6 mr-2 text-sky-500">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
+                    <h3 class="text-lg font-semibold">Virtual Account</h3>
+                </div>
+            </div>
+            <div class="p-4 bg-gray-100" id="details1" style="display: none;">
+                
+            </div>
         </div>
-    </div>
-@endsection
+        <script>
+            function toggleDetails(id) {
+                var details = document.getElementById('details' + id);
+                if (details.style.display === 'none') {
+                    details.style.display = 'block';
+                } else {
+                    details.style.display = 'none';
+                }
+            }
+        </script>
+    @endsection
