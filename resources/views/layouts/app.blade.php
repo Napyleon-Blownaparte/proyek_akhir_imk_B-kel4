@@ -15,13 +15,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
-
     <!-- Scripts -->
     @vite('resources/css/app.css')
     <script src="https://kit.fontawesome.com/b0647635f2.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    
 
 </head>
 <body class="font-sans">
@@ -35,7 +35,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
@@ -58,7 +58,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle z-100" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -83,6 +83,35 @@
         <main>
             @yield('content')
         </main>
+        <footer>
+            <div class=" h-[20em]">
+                <div class="container pt-12">
+                    <div class="row">
+                        <div class="col-3">
+                            <h1 class="text-[2.5rem]">Petravel</h1>
+                        </div>
+                        <div class="col-3">
+                            <h3>Ikuti Kami</h3>
+                            <ul class="list-none p-0 text-[1.1rem]">
+                                <li class="flex my-3"><i class="fa-brands fa-instagram self-center text-[1.1rem] max-w-[1rem]"></i><p class="my-0 ml-3">Instagram</p></li>
+                                <li class="flex my-3"><i class="fa-brands fa-whatsapp self-center text-[1.1rem] max-w-[1rem]"></i><p class="my-0 ml-3">Whatsapp</p></li>
+                                <li class="flex my-3"><i class="fa-brands fa-facebook self-center text-[1rem] max-w-[1rem]"></i><p class="my-0  ml-3">Facebook</p></li>
+                            </ul>
+                        </div>
+                        <div class="col-3">
+                            <h3>Kontak Kami</h3>
+
+                        </div>
+                        <div class="col-3">
+                            <h3>Tautan</h3>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+
     </div>
 </body>
 </html>

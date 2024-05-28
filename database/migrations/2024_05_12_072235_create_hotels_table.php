@@ -12,9 +12,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('hotels', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('city');
+            $table->id('id');
+            $table->string('hotel_name');
+            $table->integer('hotel_star');
+            $table->string('hotel_city');
+            $table->string('hotel_category');
+            $table->string('hotel_address');
+            $table->float('hotel_rating');
+            $table->integer('hotel_start_price');
+            $table->integer('review_count');
+            $table->string('hotel_image1');
+            $table->string('hotel_image2');
+            $table->string('hotel_image3');
             $table->timestamps();
         });
     }

@@ -8,51 +8,56 @@ use App\Models\Room;
 
 class HotelController extends Controller
 {
-    public function index() {
-        return view('hotel.index');
-    }
+    public function index(Request $request) {
+        $query = Hotel::query();
 
-    public function searchForm()
-    {
-        return view('home.index');
-    }
+        if ($request->has('cari')) {
+            $cari = $request->input('cari');
+            $query->where('hotel_city', 'LIKE', "%$cari%");
+        }
 
-    public function searchResults(Request $request)
-    {
-        $request->validate([
-            'city' => 'required|string',
-            'guests' => 'required|integer',
-            'checkin' => 'required|date',
-            'checkout' => 'required|date|after:checkin',
-        ]);
+        if ($request->has('min_price') && $request->has('max_price')) {
+            $minPrice = $request->input('min_price');
+            $maxPrice = $request->input('max_price');
+            $query->whereBetween('hotel_start_price', [$minPrice, $maxPrice]);
+        }
 
-        $city = $request->input('city');
-        $guests = $request->input('guests');
-        $checkin = $request->input('checkin');
-        $checkout = $request->input('checkout');
+        if ($request->has('stars')) {
+            $stars = $request->input('stars');
+            $query->whereIn('hotel_star', $stars);
+        }
 
-        $hotels = Hotel::where('city', $city)->get();
+        if ($request->has('accommodation_type')) {
+            $accommodationTypes = $request->input('accommodation_type');
+            $query->whereIn('hotel_category', $accommodationTypes);
+        }
 
-        // $availableHotels = $hotels->filter(function($hotel) use ($guests, $checkin, $checkout) {
-        //     $availableRooms = $hotel->rooms()
-        //         ->where('capacity', '>=', $guests)
-        //         ->whereDoesntHave('bookings', function($query) use ($checkin, $checkout) {
-        //             $query->where(function($q) use ($checkin, $checkout) {
-        //                 $q->whereBetween('checkin_date', [$checkin, $checkout])
-        //                   ->orWhereBetween('checkout_date', [$checkin, $checkout])
-        //                   ->orWhereRaw('? BETWEEN checkin_date AND checkout_date', [$checkin])
-        //                   ->orWhereRaw('? BETWEEN checkin_date AND checkout_date', [$checkout]);
-        //             });
-        //         })->get();
+        if ($request->has('sort_by')) {
+            $sortBy = $request->input('sort_by');
+            switch ($sortBy) {
+                case 'price':
+                    $query->orderBy('hotel_start_price', 'asc');
+                    break;
+                case 'rating':
+                    $query->orderBy('hotel_rating', 'desc');
+                    break;
+                case 'stars':
+                    $query->orderBy('hotel_star', 'desc');
+                    break;
+                default:
+                    // Default sorting can be added here if needed
+                    break;
+            }
+        }
 
-        //     $hotel->available_rooms = $availableRooms;
-        //     return $availableRooms->isNotEmpty();
-        // });
+        $hotels = $query->paginate(5);
 
         return view('hotel.index', ['hotels' => $hotels]);
     }
 
-    public function show() {
-        return view('hotel.show');
+
+
+    public function show(Hotel $hotel) {
+        return view('hotel.show', ['hotel' => $hotel]);
     }
 }
