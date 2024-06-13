@@ -10,6 +10,12 @@
 ## Link File Database (.sql)
 https://drive.google.com/file/d/1jX1OD1oREBaNp7VS6oXd8eglChwmuAww/view?usp=sharing
 
+## Langkah Menjalankan
+composer install
+npm install
+php artisan serve
+npm run dev
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
