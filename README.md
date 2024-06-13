@@ -11,7 +11,7 @@
 https://drive.google.com/file/d/1jX1OD1oREBaNp7VS6oXd8eglChwmuAww/view?usp=sharing
 
 ## Langkah Menjalankan
-composer install
+composer install <br>
 npm install
 php artisan serve
 npm run dev
