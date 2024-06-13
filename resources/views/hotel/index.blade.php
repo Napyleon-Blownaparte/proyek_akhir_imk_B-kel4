@@ -1,6 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Select2 for the city input
+        $('#city-select').select2({
+            placeholder: 'Pilih Kota Tujuan',
+            allowClear: true
+        });
+
+        const sortState = localStorage.getItem('sortState') || 'down';
+
+        // Apply the saved sort state to all icons
+        const applySortStateToIcons = (state) => {
+            document.querySelectorAll('.sort-icon').forEach(icon => {
+                if (state === 'up') {
+                    icon.classList.remove('fa-arrow-down-wide-short');
+                    icon.classList.add('fa-arrow-up-wide-short');
+                } else {
+                    icon.classList.remove('fa-arrow-up-wide-short');
+                    icon.classList.add('fa-arrow-down-wide-short');
+                }
+            });
+        };
+
+        applySortStateToIcons(sortState);
+
+        // Add event listeners to buttons
+        document.querySelectorAll('.sort-button').forEach(button => {
+            button.addEventListener('click', () => {
+                let newState = sortState === 'down' ? 'up' : 'down';
+
+                // Apply the new state to all icons
+                applySortStateToIcons(newState);
+
+                // Save the new state to localStorage
+                localStorage.setItem('sortState', newState);
+            });
+        });
+        });
+
+        });
+    </script>
     <form action="/hotel" method="GET">
         <div class="sticky top-0 h-20 bg-sky-700 w-full z-40">
             <div
@@ -8,43 +49,59 @@
                 <div class="flex align-middle w-65 mx-auto h-100">
                     <div class="group flex flex-grow pl-7 transition ease-in-out hover:bg-slate-200 active:bg-slate-300 duration-300 cursor-pointer"
                         style="border-top-left-radius: 9999px; border-bottom-left-radius:9999px;">
-                        <div class="fa-solid fa-search fa-lg align-middle m-auto mx-0"></div>
+                        <div class="fa-solid fa-location-dot fa-lg align-middle m-auto mx-0"></div>
                         <div class="flex-col ml-6 my-auto">
                             <div class="flex-grow text-[0.8rem]">Destinasi</div>
                             <div class="flex-grow font-bold">
-                                <input class="cursor-pointer w-[11em] transition group-hover:bg-slate-200 duration-300"
-                                    type="text" name="cari" value="{{ request()->input('cari') }}"
-                                    placeholder="Masukkan Kota Tujuan">
+                                <select id="city-select" name="cari"
+                                    class="cursor-pointer w-[10em] transition group-hover:bg-slate-200 duration-300">
+                                    <option value="">Pilih Kota Tujuan</option>
+                                    <option value="Surabaya" {{ request()->input('cari') == 'Surabaya' ? 'selected' : '' }}>
+                                        Surabaya</option>
+                                    <option value="Jakarta" {{ request()->input('cari') == 'Jakarta' ? 'selected' : '' }}>
+                                        Jakarta</option>
+                                    <option value="Bandung" {{ request()->input('cari') == 'Bandung' ? 'selected' : '' }}>
+                                        Bandung</option>
+                                    <option value="Bali" {{ request()->input('cari') == 'Bali' ? 'selected' : '' }}>Bali
+                                    </option>
+                                    <option value="Yogyakarta"
+                                        {{ request()->input('cari') == 'Yogyakarta' ? 'selected' : '' }}>Yogyakarta</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div
-                        class="flex flex-grow pl-5 transition ease-in-out hover:bg-slate-200 active:bg-slate-300 duration-300 cursor-pointer">
-                        <div class="fa-regular fa-calendar fa-lg align-middle m-auto mx-0"></div>
+                        class="flex flex-grow  pl-5 transition ease-in-out hover:bg-slate-200 active:bg-slate-300 duration-300 cursor-pointer">
                         <div class="flex-col ml-6 my-auto">
-                            <div class="flex-grow text-[0.8rem]">Check-In</div>
-                            <div class="flex-grow font-bold">--/--/--</div>
+                            <div class="flex-grow text-[0.8rem]">Check-in</div>
+                            <div class="flex-grow font-bold">
+                                <input type="date" name="checkin" placeholder="dd-mm-yyyy"
+                                    value="{{ request()->input('checkin', '2024-05-30') }}">
+                            </div>
+
                         </div>
                     </div>
                     <div
-                        class="flex flex-grow pl-5 transition ease-in-out hover:bg-slate-200 active:bg-slate-300 duration-300 cursor-pointer">
+                        class="flex flex-grow  pl-5 transition ease-in-out hover:bg-slate-200 active:bg-slate-300 duration-300 cursor-pointer">
                         <div class="flex-col ml-6 my-auto">
-                            <div class="flex-grow text-[0.8rem]">Check-Out</div>
-                            <div class="flex-grow font-bold">--/--/--</div>
+                            <div class="flex-grow text-[0.8rem]">Check-out</div>
+                            <div class="flex-grow font-bold"><input type="date"
+                                    value="{{ request()->input('checkout', '2024-06-01') }}" name="checkout"></div>
                         </div>
                     </div>
                     <div
-                        class="flex flex-grow pl-5 transition ease-in-out hover:bg-slate-200 active:bg-slate-300 duration-300 cursor-pointer">
+                        class="flex flex-grow  pl-5 transition ease-in-out hover:bg-slate-200 active:bg-slate-300 duration-300 cursor-pointer">
                         <div class="fa-solid fa-bed fa-lg align-middle m-auto mx-0"></div>
                         <div class="flex-col ml-6 my-auto">
-                            <div class="flex-grow text-[0.8rem]">Tamu</div>
-                            <div class="flex-grow font-bold">2 guests, 1 room</div>
+                            <div class="flex-grow text-[0.8rem]">Jumlah Tamu</div>
+                            <div class="flex-grow font-bold"><input class="w-6" type="number"
+                                    value="{{ request()->input('tamu', 1) }}" name="tamu"> orang</div>
                         </div>
                     </div>
                     <div class="flex flex-grow pl-5"
                         style="border-top-right-radius: 9999px; border-bottom-right-radius:9999px;">
                         <button type="submit" value="CARI"
-                            class="rounded-xl bg-accent w-[9em] h-[3em] my-auto ml-7 mr-0 transition text-background hover:from-accent hover:scale-105 hover:shadow-2xl active:bg-secon z-100 font-bold text-sm">Yuk,
+                            class="rounded-xl bg-sky-700 w-[9em] h-[3em] my-auto ml-7 mr-0 transition text-background hover:from-accent hover:scale-105 hover:shadow-2xl active:bg-secon z-100 font-bold text-sm">Yuk,
                             cari!</button>
                     </div>
                 </div>
@@ -56,7 +113,15 @@
             <div class="container row mx-auto">
                 {{-- FILTER PANEL --}}
                 <div class="col-3">
-                    <div class="my-5">
+
+                    <div class="my-4">
+                        <p class="font-bold my-0  text-[1.2rem] mb-3">Cari Akomodasi Sesuai Keinginanmu</p>
+
+                        <button type="submit"
+                        class=" mb-2 rounded-xl bg-accent w-full h-[3em] transition text-background hover:from-accent hover:scale-105 hover:shadow-2xl active:bg-secon z-100 max-w-[12em] font-bold text-sm">Terapkan
+                        Filter</button>
+                        <div class="bg-slate-300 h-[1px] my-3 w-[95%] mx-auto"></div>
+                        <p class="text-slate-500 text-[0.8rem] my-0 mb-4">Gunakan fitur filter berikut untuk mencari berdasarkan preferensi</p>
                         <p class="font-bold m-0">Rentang Harga</p>
                         <p class="text-slate-500 text-[0.8rem]">Per kamar, per malam</p>
                         <div class="flex justify-between w-[19em]">
@@ -147,34 +212,34 @@
                             <p class="my-0">Hotel Capsul</p>
                         </div>
                     </div>
-                    <button type="submit"
-                        class="rounded-xl bg-accent w-full h-[3em] transition text-background hover:from-accent hover:scale-105 hover:shadow-2xl active:bg-secon z-100 max-w-[12em] font-bold text-sm">Terapkan
-                        Filter</button>
+
                 </div>
 
                 {{-- HOTEL PANEL --}}
                 <div class="col-9 min-h-[180vh]">
                     {{-- Filter Card --}}
                     <div class="flex align-middle mb-3 gap-4">
-                        <p class="my-0 self-center">Urut berdasarkan</p>
-                        <button class="flex rounded border-sky-700 border-2 px-3 py-[0.2em] shadow-md" name="sort_by"
-                            value="price">
-                            <div><i class="fa-solid fa-arrow-down-wide-short mr-2"></i></div>
+                        <p class="my-0 self-center">Urutkan berdasarkan</p>
+                        <button class="sort-button flex rounded border-sky-700 border-2 px-3 py-[0.2em] shadow-md"
+                            name="sort_by" value="price">
+                            <div><i class="sort-icon fa-solid fa-arrow-up-wide-short mr-2" data-sort="price"></i></div>
                             <div>Harga<i class="fa-solid fa-dollar-sign text-[0.8rem] ml-2"></i></div>
                         </button>
 
-                        <button class="flex rounded border-sky-700 border-2 px-3 py-[0.2em] shadow-md" name="sort_by"
-                            value="rating">
-                            <div><i class="fa-solid fa-arrow-down-wide-short mr-2"></i></div>
+                        <button class="sort-button flex rounded border-sky-700 border-2 px-3 py-[0.2em] shadow-md"
+                            name="sort_by" value="rating">
+                            <div><i class="sort-icon fa-solid fa-arrow-down-wide-short mr-2" data-sort="rating"></i></div>
                             <div>Rating<i class="fa-solid fa-thumbs-up text-[0.8rem] ml-2"></i></div>
                         </button>
 
-                        <button class="flex rounded border-sky-700 border-2 px-3 py-[0.2em] shadow-md" name="sort_by"
-                            value="stars">
-                            <div><i class="fa-solid fa-arrow-down-wide-short mr-2"></i></div>
+                        <button class="sort-button flex rounded border-sky-700 border-2 px-3 py-[0.2em] shadow-md"
+                            name="sort_by" value="stars">
+                            <div><i class="sort-icon fa-solid fa-arrow-down-wide-short mr-2" data-sort="stars"></i></div>
                             <div>Bintang<i class="fa-solid fa-star text-[0.8rem] ml-2"></i></div>
                         </button>
                     </div>
+
+
     </form>
 
     {{-- Hotel Card --}}
@@ -200,7 +265,19 @@
                 <div class="flex-grow ml-6 mt-4">
                     <h2 class="font-bold"> {{ $hotel->hotel_name }}</h2>
                     <span class="rounded-full border-blue-300 border-1 p-1 px-3 text-center align-center mr-2">
-                        <i class="fa-solid fa-hotel mr-1"></i><span>{{ ucfirst($hotel->hotel_category) }}</span>
+                        @if ($hotel->hotel_category == 'Hotel')
+                            <i class="fa-solid fa-hotel mr-2"></i><span>Hotel</span>
+                        @elseif ($hotel->hotel_category == 'Apartment')
+                            <i class="fa-solid fa-hotel mr-2"></i><span>Apartment</span>
+                        @elseif ($hotel->hotel_category == 'Villa')
+                            <i class="fa-solid fa-house-tsunami mr-2"></i><span>Villa</span>
+                        @elseif ($hotel->hotel_category == 'Guesthouse')
+                            <i class="fa-solid fa-place-of-worsthip mr-2"></i><span>Guesthouse</span>
+                        @elseif ($hotel->hotel_category == 'Hostel')
+                            <i class="fa-solid fa-bell-concierge mr-2"></i><span>Hostel</span>
+                        @elseif ($hotel->hotel_category == 'Capsule')
+                            <i class="fa-solid fa-capsules mr-2"></i><span>Capsule</span>
+                        @endif
                     </span>
                     <div class="mt-2 my-1 flex">
                         <div class="mr-3">
@@ -229,15 +306,24 @@
                             Rp{{ number_format($hotel->hotel_start_price, 0, '.', '.') }}</p>
                         <p class="w-52 my-0 text-[0.7rem] text-slate-500">/kamar/malam</p>
                     </div>
-                    <a href="{{ '/hotel/' . $hotel->id }}"
-                        class=" pt-2 block text-center no-underline rounded h-10 w-32 self-end text-white bg-gradient-to-r from-cyan-600 to-blue-500 font-bold transition duration-100 hover:scale-105 hover:shadow-2xl">Pilih
-                        Kamar</a>
+                    <a href="{{ url('/hotel/' . $hotel->id) . '?' . http_build_query(request()->query()) }}"
+                        class="pt-2 block text-center no-underline rounded h-10 w-32 self-end text-white bg-gradient-to-r from-cyan-600 to-blue-500 font-bold transition duration-100 hover:scale-105 hover:shadow-2xl">
+                        Lihat Kamar
+                    </a>
+
                 </div>
             </div>
         @endforeach
     @endif
-    <p class="text-black">{{ $hotels->onEachSide(5)->links() }}</p>
+    <p class="text-black">
+        {{ $hotels->appends(request()->query())->onEachSide(5)->links() }}
+    </p>
+    <p class=" font-light">Menampilkan {{ $hotels->firstItem() }} - {{ $hotels->lastItem() }} dari <span class="ml-1"> ({{ $hotels->total() }} hasil pencarian)</span></p>
+
+
+
     </div>
     </div>
     </div>
+
 @endsection

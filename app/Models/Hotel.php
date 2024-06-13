@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Hotel extends Model
 {
     protected $guarded = [];
-    
-    public function rooms() {
+    public function rooms()
+    {
         return $this->hasMany(Room::class);
     }
+    
 }

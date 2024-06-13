@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('hotel_image1');
             $table->string('hotel_image2');
             $table->string('hotel_image3');
+            $table->string('room_image1');
+            $table->string('room_image2');
+            $table->string('room_image3');
             $table->timestamps();
         });
     }
