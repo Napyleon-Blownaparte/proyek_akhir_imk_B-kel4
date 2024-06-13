@@ -12,8 +12,8 @@ https://drive.google.com/file/d/1jX1OD1oREBaNp7VS6oXd8eglChwmuAww/view?usp=shari
 
 ## Langkah Menjalankan
 composer install <br>
-npm install
-php artisan serve
+npm install <br>
+php artisan serve<br>
 npm run dev
 
 ## About Laravel
